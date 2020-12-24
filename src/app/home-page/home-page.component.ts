@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BackendRestService } from '../services/backend-rest.service'
+
+
 
 @Component({
   selector: 'app-home-page',
@@ -11,37 +14,45 @@ export class HomePageComponent implements OnInit {
 
   deploymentForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private backendService: BackendRestService) { }
 
   ngOnInit(): void {
     this.deploymentForm = this.fb.group({
       microservices: this.fb.array([])
     })
-    this.addMicroservice()
+    this.addRow()
   }
 
   get microserviceForms() {
     return this.deploymentForm.get('microservices') as FormArray
   }
 
-  addMicroservice() {
-    const microservice = this.fb.group({
-      name: ['' ,[Validators.required]],
+  addRow() {
+    const deploymentRow = this.fb.group({
+      name: ['', [Validators.required]],
       entryPoint: [false, [Validators.required]],
-      replicas: [1,[Validators.required]],
+      replicas: [1, [Validators.required]],
       dependencies: ['', [Validators.required]]
 
     })
-    this.microserviceForms.push(microservice)
+    this.microserviceForms.push(deploymentRow)
   }
 
-  deleteMicroservice(i) {
+  deleteRow(i) {
     this.microserviceForms.removeAt(i)
   }
 
-  onSubmit(){
-    console.log(this.deploymentForm.value)
+  onSubmit() {
+    //The 'dependencies' returned by the Form is a string, we need to convert it to a string array
+    let deploymentRawObject = JSON.stringify(this.deploymentForm.getRawValue()["microservices"])
+    let jsonObject = eval('(' + deploymentRawObject + ')');
+    jsonObject.filter(e => e.dependencies = e.dependencies.split(','));
+    
+    let deploymentJsonString = JSON.stringify(jsonObject)
 
+    console.log(deploymentJsonString)
+
+    this.backendService.createDeployment(deploymentJsonString)
   }
 
 }

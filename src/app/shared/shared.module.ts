@@ -21,8 +21,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ShellComponent } from './shell/shell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
-
 const components = [ShellComponent];
 
 const modules = [
