@@ -1,0 +1,51 @@
+<div class="deployment-container">
+    <mat-card>
+
+        <form [formGroup]="deploymentForm" (ngSubmit)="onSubmit()">
+
+            <div formArrayName="microservices">
+                <div *ngFor="let microservice of microserviceForms.controls; let i=index" [formGroupName]="i">
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="A" formControlName="name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Entry Point</mat-label>
+                        <mat-select formControlName="entryPoint">
+                            <mat-option value="false">false</mat-option>
+                            <mat-option value="true">true</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Replicas</mat-label>
+                        <input matInput type="number" placeholder="1" formControlName="replicas">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Dependencies</mat-label>
+                        <input matInput placeholder="A,B" formControlName="dependencies">
+                    </mat-form-field>
+
+                    <button mat-raised-button color="warn" (click)="deleteMicroservice(i)">
+                        <mat-icon>remove_circle</mat-icon> Delete
+                    </button>
+                </div>
+            </div>
+
+            <mat-card-actions>
+                <button mat-raised-button (click)="addMicroservice()">
+                    <mat-icon>add box</mat-icon> Add
+                </button>
+
+                <button type="submit" mat-raised-button [disabled]="deploymentForm.invalid ">
+                    <mat-icon>login</mat-icon> Submit
+                </button>
+            </mat-card-actions>
+
+        </form>
+    </mat-card>
+
+</div>
