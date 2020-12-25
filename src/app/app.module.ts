@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { HomePageComponent } from './home-page/home-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { MonitoringComponent } from './monitoring/monitoring.component';
 
 
 
@@ -15,7 +16,8 @@ import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    MonitoringComponent
   ],
   imports: [
     BrowserModule,

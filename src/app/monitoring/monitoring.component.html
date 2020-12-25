@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Deployed Services</mat-card-title>
+      </mat-card-header>
+    <mat-card *ngFor="let data of deployment; let i = index" >
+        <mat-card-content>
+            Name={{data.name}},
+            Id={{data.id}},
+            isEntryPoint={{data.isEntryPoint}},
+            Dependencies={{data.dependencies}}
+        </mat-card-content>
+    </mat-card>
+</mat-card>
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Health</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions>
+        <button mat-raised-button (click)="healthCheck()">
+            <mat-icon>healing icon</mat-icon> Check Health
+        </button>
+        </mat-card-actions>
+    <mat-card *ngFor="let data of healthReport; let i = index" >
+        <mat-card-content>
+          Health of Microservice {{data.name}} is <span style="color:green">{{data.status}}</span>
+        </mat-card-content>
+    </mat-card>
+</mat-card>

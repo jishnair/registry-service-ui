@@ -15,11 +15,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-
-
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ShellComponent } from './shell/shell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material/expansion';
+
 
 const components = [ShellComponent];
 
@@ -42,7 +42,8 @@ const modules = [
   ReactiveFormsModule,
   MatSelectModule,
   MatCheckboxModule,
-  MatChipsModule
+  MatChipsModule,
+  MatExpansionModule
 ];
 
 @NgModule({
