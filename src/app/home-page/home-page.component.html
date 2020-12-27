@@ -32,11 +32,11 @@
                     </button>
                 </div>
             </div>
-            <mat-card-actions>
-                <button mat-raised-button (click)="addRow()">
+            <mat-card-actions >
+                <button mat-raised-button (click)="addRow()" color="primary">
                     <mat-icon>add box</mat-icon> Add
                 </button>
-                <button (click)="onSubmit()" mat-raised-button [disabled]="deploymentForm.invalid">
+                <button (click)="onSubmit()" mat-raised-button [disabled]="deploymentForm.invalid" color="primary" >
                     <mat-icon>login</mat-icon> Submit
                 </button>
             </mat-card-actions>

@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { map, tap } from 'rxjs/operators';
-import { SnackService } from './snack.service';
 import { MicroserviceDTO } from '../model/microservice.model';
-import { DeploymentStatus } from '../model/deployment--status.model';
+import { DeploymentStatus } from '../model/deployment-status.model';
 
 import { Observable } from 'rxjs';
 
@@ -25,10 +22,10 @@ export class BackendRestService {
 
     return this.httpClient.post<DeploymentStatus>(this.DEPLOYMENT_API_URL, deployment, this.getHeaderOptions())
   }
-  //
+  
   getDeployments(): Observable<MicroserviceDTO[]> {
-    return this.httpClient.get<MicroserviceDTO[]>(this.DEPLOYMENT_API_URL)
 
+    return this.httpClient.get<MicroserviceDTO[]>(this.DEPLOYMENT_API_URL)
   }
 
   checkHealth() {

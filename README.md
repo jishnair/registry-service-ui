@@ -1,6 +1,6 @@
 # RegistryServiceUi
 
-This project is created using Angular 10. 
+This project is created using [Angular 10](https://angular.io/) and the [Angular Material](https://material.angular.io/) component library. 
 
 ## Development server
 Please install angular-cli before running the project.
