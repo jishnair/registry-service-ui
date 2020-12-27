@@ -9,17 +9,17 @@ import { BackendRestService } from '../services/backend-rest.service';
 export class MonitoringComponent implements OnInit {
 
   deployment;
-  healthReport=[];
+  healthReport = [];
+  loading: boolean = false;
 
   constructor(private backendService: BackendRestService) { }
 
   ngOnInit(): void {
     this.getDeployments()
-   
+    this.healthCheck()
   }
 
   getDeployments() {
-
     this.backendService.getDeployments().subscribe(
       result => {
         console.log(result)
@@ -29,25 +29,27 @@ export class MonitoringComponent implements OnInit {
   }
 
   healthCheck() {
-    this.healthReport=[]
+    this.healthReport = []
+    this.loading = true
 
     this.backendService.checkHealth()
     setTimeout(() => {
       this.backendService.getHealthReport().subscribe(result => {
-        
+
         for (let key in result) {
           console.log(key, result[key]);
-          let obj={}
-          obj["name"]=key
-          obj["status"]=result[key]
+          let obj = {}
+          obj["name"] = key
+          obj["status"] = result[key]
           this.healthReport.push(obj)
-      
+
         }
         console.log(this.healthReport)
       }
       )
-    },
-      1000);
+      this.loading = false
+    }, 3000);
+
   }
 
 }

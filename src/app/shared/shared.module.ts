@@ -18,7 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ShellComponent } from './shell/shell.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 const components = [ShellComponent];
@@ -43,7 +44,7 @@ const modules = [
   MatSelectModule,
   MatCheckboxModule,
   MatChipsModule,
-  MatExpansionModule
+  MatProgressSpinnerModule
 ];
 
 @NgModule({
@@ -54,4 +55,4 @@ const modules = [
     ...modules,
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -1,10 +1,6 @@
-
 <div class="deployment-container">
     <mat-card>
-
-        <form [formGroup]="deploymentForm" (ngSubmit)="onSubmit()">
-
-
+        <form [formGroup]="deploymentForm">
             <div formArrayName="microservices">
                 <div *ngFor="let microservice of microserviceForms.controls; let i=index" [formGroupName]="i">
 
@@ -36,18 +32,21 @@
                     </button>
                 </div>
             </div>
-
             <mat-card-actions>
                 <button mat-raised-button (click)="addRow()">
                     <mat-icon>add box</mat-icon> Add
                 </button>
-
-                <button type="submit" mat-raised-button [disabled]="false">
+                <button (click)="onSubmit()" mat-raised-button [disabled]="deploymentForm.invalid">
                     <mat-icon>login</mat-icon> Submit
                 </button>
             </mat-card-actions>
-
         </form>
     </mat-card>
-
 </div>
+<mat-card *ngIf="deploymentStatus.message">
+    <mat-card-content>
+        <mat-card-header>Deployment Status</mat-card-header>
+        <span [ngStyle]="{'color': deploymentStatus.status ? 'red' : 'green'}">{{deploymentStatus.message}}
+        </span>
+    </mat-card-content>
+</mat-card>

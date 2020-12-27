@@ -4,6 +4,8 @@ import { environment } from 'src/environments/environment';
 import { map, tap } from 'rxjs/operators';
 import { SnackService } from './snack.service';
 import { MicroserviceDTO } from '../model/microservice.model';
+import { DeploymentStatus } from '../model/deployment--status.model';
+
 import { Observable } from 'rxjs';
 
 
@@ -14,37 +16,27 @@ import { Observable } from 'rxjs';
 export class BackendRestService {
 
   readonly DEPLOYMENT_API_URL = "/api/deployment"
-  readonly MICROSERVICE_API_URL = "/api/deployment"
-  readonly CHECK_HEALTH_API_URL = "/api/checkhealth"
-  readonly HEALTH_REPORT_API_URL = "/api/healthreport"
+  readonly CHECK_HEALTH_API_URL = "/api/healthcheck"
 
-  constructor(private httpClient: HttpClient, private snack: SnackService) {
+  constructor(private httpClient: HttpClient) {
   }
 
-  createDeployment(deployment: String) {
+  createDeployment(deployment: String): Observable<DeploymentStatus> {
 
-    this.httpClient.post(this.DEPLOYMENT_API_URL, deployment, this.getHeaderOptions()).subscribe(
-      data => {
-        this.snack.showMessage("Success:" + data["message"])
-      },
-      error => {
-        console.log(error)
-        this.snack.showMessage("Error:" + error["error"])
-      },
-    )
+    return this.httpClient.post<DeploymentStatus>(this.DEPLOYMENT_API_URL, deployment, this.getHeaderOptions())
   }
-//
-  getDeployments() : Observable<MicroserviceDTO[]>{
-     return this.httpClient.get<MicroserviceDTO[]>(this.MICROSERVICE_API_URL)
+  //
+  getDeployments(): Observable<MicroserviceDTO[]> {
+    return this.httpClient.get<MicroserviceDTO[]>(this.DEPLOYMENT_API_URL)
 
   }
 
-  checkHealth(){
-    this.httpClient.get(this.CHECK_HEALTH_API_URL);
+  checkHealth() {
+     this.httpClient.post<any>(this.CHECK_HEALTH_API_URL, null, this.getHeaderOptions()).subscribe()
   }
 
-  getHealthReport(){
-    return this.httpClient.get(this.HEALTH_REPORT_API_URL);
+  getHealthReport() {
+    return this.httpClient.get(this.CHECK_HEALTH_API_URL);
   }
 
   private getHeaderOptions() {
